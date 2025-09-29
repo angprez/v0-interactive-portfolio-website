@@ -1,0 +1,651 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated theme to match surreal artistic portfolio design */
+  --background: oklch(0.95 0.02 240); /* Soft blue-gray background */
+  --foreground: oklch(0.15 0.05 240); /* Deep blue-gray text */
+  --card: oklch(0.98 0.01 240); /* Light card background */
+  --card-foreground: oklch(0.15 0.05 240);
+  --popover: oklch(0.98 0.01 240);
+  --popover-foreground: oklch(0.15 0.05 240);
+  --primary: oklch(0.25 0.15 240); /* Deep blue primary */
+  --primary-foreground: oklch(0.98 0.01 240);
+  --secondary: oklch(0.85 0.05 30); /* Warm earth tone */
+  --secondary-foreground: oklch(0.15 0.05 240);
+  --muted: oklch(0.92 0.02 240);
+  --muted-foreground: oklch(0.45 0.05 240);
+  --accent: oklch(0.75 0.12 30); /* Warm accent */
+  --accent-foreground: oklch(0.98 0.01 240);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.01 240);
+  --border: oklch(0.88 0.02 240);
+  --input: oklch(0.92 0.02 240);
+  --ring: oklch(0.45 0.15 240);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.98 0.01 240);
+  --sidebar-foreground: oklch(0.15 0.05 240);
+  --sidebar-primary: oklch(0.25 0.15 240);
+  --sidebar-primary-foreground: oklch(0.98 0.01 240);
+  --sidebar-accent: oklch(0.92 0.02 240);
+  --sidebar-accent-foreground: oklch(0.15 0.05 240);
+  --sidebar-border: oklch(0.88 0.02 240);
+  --sidebar-ring: oklch(0.45 0.15 240);
+}
+
+.dark {
+  /* Dark theme with deep blues and warm accents */
+  --background: oklch(0.08 0.05 240); /* Deep blue background */
+  --foreground: oklch(0.95 0.02 240); /* Light text */
+  --card: oklch(0.12 0.05 240);
+  --card-foreground: oklch(0.95 0.02 240);
+  --popover: oklch(0.12 0.05 240);
+  --popover-foreground: oklch(0.95 0.02 240);
+  --primary: oklch(0.85 0.05 240); /* Light blue primary */
+  --primary-foreground: oklch(0.08 0.05 240);
+  --secondary: oklch(0.65 0.12 30); /* Warm earth tone */
+  --secondary-foreground: oklch(0.95 0.02 240);
+  --muted: oklch(0.18 0.05 240);
+  --muted-foreground: oklch(0.65 0.05 240);
+  --accent: oklch(0.75 0.12 30); /* Warm accent */
+  --accent-foreground: oklch(0.08 0.05 240);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.95 0.02 240);
+  --border: oklch(0.22 0.05 240);
+  --input: oklch(0.18 0.05 240);
+  --ring: oklch(0.65 0.15 240);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.12 0.05 240);
+  --sidebar-foreground: oklch(0.95 0.02 240);
+  --sidebar-primary: oklch(0.85 0.05 240);
+  --sidebar-primary-foreground: oklch(0.08 0.05 240);
+  --sidebar-accent: oklch(0.18 0.05 240);
+  --sidebar-accent-foreground: oklch(0.95 0.02 240);
+  --sidebar-border: oklch(0.22 0.05 240);
+  --sidebar-ring: oklch(0.65 0.15 240);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* Added custom animations for floating elements */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+}
+
+@keyframes parallax {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-parallax {
+  animation: parallax 20s linear infinite;
+}
+
+/* Added advanced interactive animations for clouds and rocks */
+
+/* Cloud Drift Animations */
+@keyframes drift {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 100px));
+  }
+}
+
+@keyframes drift-slow {
+  0% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 150px));
+  }
+}
+
+@keyframes drift-reverse {
+  0% {
+    transform: translateX(calc(100vw + 100px));
+  }
+  100% {
+    transform: translateX(-100px);
+  }
+}
+
+/* Rock Movement Animations */
+@keyframes rock-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) rotate(2deg) scale(1.05);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-1deg) scale(1.1);
+  }
+  75% {
+    transform: translateY(-6px) rotate(3deg) scale(1.05);
+  }
+}
+
+@keyframes rock-drift {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(1deg);
+  }
+}
+
+@keyframes rock-float-slow {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) rotate(4deg) scale(1.15);
+  }
+}
+
+/* Sparkle Effects */
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes sparkle-slow {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3);
+  }
+}
+
+/* Animation Classes */
+.animate-drift {
+  animation: drift 25s linear infinite;
+}
+
+.animate-drift-slow {
+  animation: drift-slow 35s linear infinite;
+}
+
+.animate-drift-reverse {
+  animation: drift-reverse 30s linear infinite;
+}
+
+.animate-rock-float {
+  animation: rock-float 7s ease-in-out infinite;
+}
+
+.animate-rock-drift {
+  animation: rock-drift 5s ease-in-out infinite;
+}
+
+.animate-rock-float-slow {
+  animation: rock-float-slow 9s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.animate-sparkle-slow {
+  animation: sparkle-slow 4s ease-in-out infinite;
+}
+
+/* Interactive Hover Effects */
+.hover-bounce {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-bounce:hover {
+  transform: translateY(-5px) scale(1.1) !important;
+}
+
+/* Enhanced unique hover effects for each rock type */
+
+/* Crystal Rock - Prismatic light effect */
+.hover-crystal {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-crystal:hover {
+  transform: translateY(-8px) scale(1.2) rotate(15deg) !important;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(135, 206, 235, 0.4));
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(135, 206, 235, 0.3));
+}
+
+/* Ember Rock - Fiery glow effect */
+.hover-ember {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-ember:hover {
+  transform: translateY(-6px) scale(1.15) rotate(-10deg) !important;
+  filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.7)) drop-shadow(0 0 30px rgba(255, 69, 0, 0.5));
+  background: radial-gradient(circle, rgba(255, 165, 0, 0.5), rgba(255, 69, 0, 0.3));
+}
+
+/* Mystic Rock - Ethereal pulse effect */
+.hover-mystic {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-mystic:hover {
+  transform: translateY(-10px) scale(1.25) rotate(20deg) !important;
+  filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)) drop-shadow(0 0 50px rgba(75, 0, 130, 0.4));
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.4), rgba(75, 0, 130, 0.3));
+  animation: mystic-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mystic-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Shard Rock - Sharp crystalline effect */
+.hover-shard {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-shard:hover {
+  transform: translateY(-4px) scale(1.3) rotate(45deg) !important;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 24px rgba(0, 191, 255, 0.6));
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.5), rgba(0, 191, 255, 0.3));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Prism Rock - Rainbow refraction effect */
+.hover-prism {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-prism:hover {
+  transform: translateY(-7px) scale(1.18) rotate(-25deg) !important;
+  filter: drop-shadow(0 0 18px rgba(255, 0, 255, 0.5)) drop-shadow(0 0 36px rgba(0, 255, 0, 0.3));
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 0, 0, 0.4),
+    rgba(255, 165, 0, 0.4),
+    rgba(255, 255, 0, 0.4),
+    rgba(0, 255, 0, 0.4),
+    rgba(0, 0, 255, 0.4),
+    rgba(75, 0, 130, 0.4),
+    rgba(238, 130, 238, 0.4)
+  );
+  animation: prism-rotate 3s linear infinite;
+}
+
+@keyframes prism-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Void Rock - Dark matter effect */
+.hover-void {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-void:hover {
+  transform: translateY(-5px) scale(1.1) rotate(180deg) !important;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(25, 25, 112, 0.6));
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.7), rgba(25, 25, 112, 0.4));
+  animation: void-distort 2s ease-in-out infinite;
+}
+
+@keyframes void-distort {
+  0%,
+  100% {
+    border-radius: 50%;
+    transform: scale(1.1);
+  }
+  50% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: scale(1.2);
+  }
+}
+
+/* Enhanced cloud variations */
+.cloud-wispy::before {
+  width: 80%;
+  height: 60%;
+  opacity: 0.7;
+}
+
+.cloud-fluffy::before {
+  width: 70%;
+  height: 90%;
+  opacity: 0.8;
+}
+
+.cloud-stretched {
+  border-radius: 50px 20px 50px 20px;
+}
+
+.cloud-small::after {
+  width: 30%;
+  height: 40%;
+}
+
+/* Scroll-based background transitions */
+@keyframes background-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.immersive-bg {
+  background: linear-gradient(45deg, rgba(25, 25, 112, 0.1), rgba(70, 130, 180, 0.1), rgba(135, 206, 235, 0.1));
+  background-size: 400% 400%;
+  animation: background-shift 20s ease infinite;
+}
+
+/* Enhanced responsive design for mobile */
+@media (max-width: 768px) {
+  .rock-element {
+    transform: scale(0.6) !important;
+  }
+
+  .cloud-element {
+    transform: scale(0.8) !important;
+  }
+
+  .hover-crystal:hover,
+  .hover-ember:hover,
+  .hover-mystic:hover,
+  .hover-shard:hover,
+  .hover-prism:hover,
+  .hover-void:hover {
+    transform: scale(0.8) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .rock-element,
+  .cloud-element {
+    opacity: 0.7;
+  }
+
+  .animate-drift,
+  .animate-drift-slow,
+  .animate-drift-reverse {
+    animation-duration: 10s;
+  }
+}
+
+/* Performance optimizations for smooth animations */
+.rock-element,
+.cloud-element {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .rock-element:active {
+    transform: scale(1.1) !important;
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Cloud Elements */
+.cloud-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.cloud-element::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  width: 60%;
+  height: 80%;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.cloud-element::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  right: 20%;
+  width: 40%;
+  height: 60%;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+/* Rock Elements */
+.rock-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  cursor: pointer;
+}
+
+.rock-element::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Performance Optimizations */
+@media (max-width: 768px) {
+  .cloud-element,
+  .rock-element {
+    transform: scale(0.7) !important;
+  }
+
+  .animate-drift,
+  .animate-drift-slow,
+  .animate-drift-reverse {
+    animation-duration: 15s;
+  }
+
+  .animate-rock-float,
+  .animate-rock-drift,
+  .animate-rock-float-slow {
+    animation-duration: 4s;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .cloud-element,
+  .rock-element,
+  .animate-drift,
+  .animate-drift-slow,
+  .animate-drift-reverse,
+  .animate-rock-float,
+  .animate-rock-drift,
+  .animate-rock-float-slow,
+  .animate-sparkle,
+  .animate-sparkle-slow {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .hover-bounce:hover {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .animate-float,
+  .animate-float-slow {
+    animation-duration: 4s;
+    transform: scale(0.8);
+  }
+
+  .hero-bg {
+    background-attachment: scroll;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-parallax {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
