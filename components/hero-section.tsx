@@ -1,246 +1,97 @@
 "use client"
 
-import type React from "react"
+import React, { useLayoutEffect, useRef } from "react"
+import { ArrowDown } from "lucide-react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowRight, BookText, Linkedin, Mail } from "lucide-react"
+gsap.registerPlugin(ScrollTrigger);
 
 export function HeroSection() {
-  const [email, setEmail] = useState("")
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [scrollY, setScrollY] = useState(0)
-  const sectionRef = useRef<HTMLElement>(null)
+  const mainRef = useRef(null);
+  const helloRef = useRef(null);
+  const angelesRef = useRef(null);
+  const videoContainerRef = useRef(null);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        setMousePosition({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height,
-        })
-      }
-    }
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: mainRef.current,
+          pin: true, // Fija la sección mientras dura la animación
+          scrub: 1,  // Conecta la animación al scroll
+          start: "top top",
+          end: "+=2000", // La animación durará por 2000px de scroll
         },
-        body: JSON.stringify({ email }),
       });
 
-      if (response.ok) {
-        alert('¡Thank you for contacting!.');
-        setEmail(''); // Limpia el campo de email
-      } else {
-        alert('There was a mistake. Please, try again.');
-      }
-    } catch (error) {
-      console.error('Submission error:', error);
-      alert('There was a mistake. The form was not submited.');
-    }
-  };
+      // Animación de salida para "Hello,"
+      timeline.to(helloRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        ease: "power2.inOut",
+      });
 
-  const rockOpacity = Math.max(0, 1 - scrollY / 800)
-  const rockScale = Math.max(0.5, 1 - scrollY / 1200)
+      // Animación de entrada para "This is Angeles"
+      timeline.fromTo(angelesRef.current, 
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, ease: "power2.inOut" },
+        "<" // El "<" hace que esta animación empiece al mismo tiempo que la anterior
+      );
+      
+    }, mainRef);
+
+    return () => ctx.revert(); // Limpieza de la animación
+  }, []);
 
   return (
     <section
-      ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      ref={mainRef}
+      className="relative min-h-screen w-full bg-black overflow-hidden"
     >
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover"
-            src="/videos/hero-video.mp4"
-        />
-      </div>
+      {/* Contenedor que se va a fijar en la pantalla */}
+      <div className="relative w-full h-screen flex flex-col justify-center items-center p-4 sm:p-8">
 
-      {/* --- BLOQUE DE CÓDIGO ELIMINADO --- 
-          He quitado el DIV que contenía los "Persistent Sky Elements" para eliminar el gradiente.
-      */}
+        {/* El video centrado */}
+        <div ref={videoContainerRef} className="relative w-full max-w-5xl mx-auto aspect-video">
+          <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="w-full h-full object-cover"
+              src="/videos/hero-video.mp4"
+          />
+        </div>
 
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Enhanced Drifting Clouds with unique behaviors */}
-        <div
-          className="cloud-element cloud-wispy absolute top-16 left-0 w-32 h-20 bg-white/10 rounded-full blur-md animate-drift-slow"
-          style={{
-            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 10 + scrollY * 0.3}px)`,
-            opacity: Math.max(0.3, 1 - scrollY / 1000),
-          }}
-        />
-        <div
-          className="cloud-element cloud-fluffy absolute top-32 right-0 w-24 h-16 bg-white/8 rounded-full blur-lg animate-drift"
-          style={{
-            transform: `translate(${-mousePosition.x * 15}px, ${mousePosition.y * 8 + scrollY * 0.2}px)`,
-            opacity: Math.max(0.2, 1 - scrollY / 1200),
-          }}
-        />
-        <div
-          className="cloud-element cloud-stretched absolute top-48 left-1/3 w-40 h-24 bg-white/6 rounded-full blur-xl animate-drift-reverse"
-          style={{
-            transform: `translate(${mousePosition.x * 25}px, ${mousePosition.y * 12 + scrollY * 0.4}px)`,
-            opacity: Math.max(0.4, 1 - scrollY / 800),
-          }}
-        />
-        <div
-          className="cloud-element cloud-small absolute bottom-32 right-1/4 w-28 h-18 bg-white/7 rounded-full blur-lg animate-drift-slow"
-          style={{
-            transform: `translate(${-mousePosition.x * 18}px, ${-mousePosition.y * 9 + scrollY * 0.25}px)`,
-            opacity: Math.max(0.3, 1 - scrollY / 1000),
-          }}
-        />
-
-        <div
-          className="rock-element rock-crystal absolute top-20 left-10 w-16 h-16 bg-secondary/30 rounded-full blur-sm animate-rock-float hover-crystal"
-          style={{
-            transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * 20 + scrollY * 0.6}px) rotate(${mousePosition.x * 10}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-        <div
-          className="rock-element rock-ember absolute top-40 right-20 w-12 h-12 bg-accent/40 rounded-full blur-sm animate-rock-drift hover-ember"
-          style={{
-            transform: `translate(${-mousePosition.x * 25}px, ${mousePosition.y * 15 + scrollY * 0.4}px) rotate(${-mousePosition.y * 8}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-        <div
-          className="rock-element rock-mystic absolute bottom-40 left-1/4 w-20 h-20 bg-primary/20 rounded-full blur-sm animate-rock-float-slow hover-mystic"
-          style={{
-            transform: `translate(${mousePosition.x * 35}px, ${-mousePosition.y * 25 + scrollY * 0.7}px) rotate(${mousePosition.x * 12}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-        <div
-          className="rock-element rock-shard absolute top-60 right-1/3 w-8 h-8 bg-secondary/50 rounded-full blur-sm animate-rock-drift hover-shard"
-          style={{
-            transform: `translate(${-mousePosition.x * 20}px, ${mousePosition.y * 18 + scrollY * 0.5}px) rotate(${-mousePosition.x * 6}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-        <div
-          className="rock-element rock-prism absolute bottom-60 left-1/2 w-14 h-14 bg-accent/35 rounded-full blur-sm animate-rock-float hover-prism"
-          style={{
-            transform: `translate(${mousePosition.x * 28}px, ${-mousePosition.y * 22 + scrollY * 0.65}px) rotate(${mousePosition.y * 9}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-        <div
-          className="rock-element rock-void absolute top-80 left-20 w-10 h-10 bg-primary/40 rounded-full blur-sm animate-rock-drift hover-void"
-          style={{
-            transform: `translate(${mousePosition.x * 22}px, ${mousePosition.y * 16 + scrollY * 0.55}px) rotate(${mousePosition.x * 7}deg) scale(${rockScale})`,
-            opacity: rockOpacity,
-          }}
-        />
-
-        <div
-          className="absolute top-24 right-16 w-6 h-6 bg-white/20 rounded-full blur-xs animate-sparkle"
-          style={{
-            transform: `translate(${mousePosition.x * 40}px, ${mousePosition.y * 30}px)`,
-            opacity: Math.max(0.2, 1 - scrollY / 600),
-          }}
-        />
-        <div
-          className="absolute bottom-48 left-16 w-4 h-4 bg-secondary/40 rounded-full blur-xs animate-sparkle-slow"
-          style={{
-            transform: `translate(${-mousePosition.x * 35}px, ${-mousePosition.y * 25}px)`,
-            opacity: Math.max(0.3, 1 - scrollY / 800),
-          }}
-        />
-        <div
-          className="absolute top-72 right-32 w-3 h-3 bg-accent/60 rounded-full blur-xs animate-sparkle"
-          style={{
-            transform: `translate(${mousePosition.x * 45}px, ${mousePosition.y * 35}px)`,
-            opacity: Math.max(0.1, 1 - scrollY / 700),
-          }}
-        />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1 className="font-serif text-6xl sm:text-7xl lg:text-8xl font-bold text-white mb-8 text-balance" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>
-          Strategies,
-          <span 
-            className="block text-secondary italic" 
-            style={{ textShadow: '2px 2px 10px rgba(255, 255, 255, 0.6)' }}
-          >
-            into growth
-          </span>
+        {/* Capa de Texto "Hello," (Animado) */}
+        <h1 
+          ref={helloRef}
+          className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-nowrap tracking-tighter"
+        >
+          Hello,
         </h1>
 
-        <p className="text-lg sm:text-xl text-white mb-12 max-w-2xl mx-auto text-pretty leading-relaxed" style={{ textShadow: '1px 1px 6px rgba(0, 0, 0, 0.8)' }}>
-          Desgining marketing strategies, automations, and digital experiences that help businesses grow.
-        </p>
+        {/* Capa de Texto con Borde "This is Angeles" (Animado) */}
+        <h2 
+          ref={angelesRef}
+          className="pointer-events-none absolute font-serif text-transparent text-center text-[10vw] sm:text-[8vw] lg:text-[11.5vw] whitespace-nowrap tracking-tight opacity-0" // Empieza invisible
+          style={{ 
+            WebkitTextStroke: '2px white',
+            filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5))'
+          }}
+        >
+          This is Angeles
+        </h2>
 
-        {/* Newsletter Signup */}
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8">
-          <Input
-            type="email"
-            placeholder="Enter your email to connect with me"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 bg-white/10 backdrop-blur-sm border-white/80 text-white placeholder:text-black"
-            required
-          />
-          <Button type="submit" className="bg-white text-primary hover:bg-white">
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        </form>
-
-        {/* Social Links */}
-        <div className="flex justify-center space-x-6">
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
-            <a href="mailto:ade.maidana1@gmail.com" aria-label="Gmail">
-              <Mail className="w-6 h-6" />
-            </a>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
-            <a href="https://www.linkedin.com/in/angprezm" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <Linkedin className="w-6 h-6" />
-            </a>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
-            <a href="https://substack.com/@fonsagency" target="_blank" rel="noopener noreferrer" aria-label="Substack">
-              <BookText className="w-6 h-6" />
-            </a>
-          </Button>
-        </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse" />
-          </div>
-        </div>
+      {/* Indicador de Scroll */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-white/50">
+        <p className="flex items-center gap-2">
+          Let's scroll <ArrowDown className="w-4 h-4 animate-bounce" />
+        </p>
       </div>
     </section>
   )
