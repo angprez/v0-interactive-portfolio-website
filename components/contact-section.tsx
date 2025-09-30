@@ -9,33 +9,33 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Calendar, MessageCircle, Clock } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Linkedin, BookText, Calendar, MessageCircle, Clock } from "lucide-react"
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@alexjohnson.dev",
-    href: "mailto:hello@alexjohnson.dev",
+    value: "ade.maidana1@gmail.com",
+    href: "mailto:ade.maidana1@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+1 (316) 304-4710",
+    href: "tel:+13163044710",
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "San Francisco, CA",
+    value: "Wichita, KS",
     href: "#",
   },
 ]
 
 const socialLinks = [
-  { icon: Github, label: "GitHub", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Twitter, label: "Twitter", href: "#" },
+    { icon: Mail, label: "Gmail", href: "mailto:ade.maidana1@gmail.com" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/angprezm" },
+    { icon: BookText, label: "Substack", href: "https://substack.com/@fonsagency" },
 ]
 
 const services = ["Web Development", "UI/UX Design", "Mobile Apps", "Consulting", "Brand Identity", "E-commerce"]
@@ -157,7 +157,12 @@ export function ContactSection() {
             <div className="flex justify-center gap-4">
               {socialLinks.map((social, index) => (
                 <Button key={index} variant="outline" size="icon" asChild>
-                  <a href={social.href} aria-label={social.label}>
+                  <a
+                    href={social.href}
+                    aria-label={social.label}
+                    target={social.href.startsWith("mailto:") ? "_self" : "_blank"}
+                    rel="noopener noreferrer"
+                  >
                     <social.icon className="w-5 h-5" />
                   </a>
                 </Button>
@@ -272,7 +277,7 @@ export function ContactSection() {
         {/* Footer */}
         <div className="mt-20 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2025 Alex Johnson. All rights reserved. Built with Next.js and Tailwind CSS.
+            © 2025 Angeles Perez. All rights reserved.
           </p>
         </div>
       </div>

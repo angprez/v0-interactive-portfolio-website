@@ -8,43 +8,46 @@ import { Progress } from "@/components/ui/progress"
 import { Download, Award, Users, Coffee, Code2 } from "lucide-react"
 import Image from "next/image"
 
+// --- HABILIDADES TÉCNICAS (ACTUALIZADO) ---
 const skills = [
-  { name: "React/Next.js", level: 95 },
-  { name: "TypeScript", level: 90 },
-  { name: "UI/UX Design", level: 85 },
-  { name: "Node.js", level: 80 },
-  { name: "Python", level: 75 },
-  { name: "Three.js/WebGL", level: 70 },
+  { name: "Web Development", level: 75 },
+  { name: "Workflow Automation (n8n, Airtable)", level: 85 },
+  { name: "Project Management (Jira, Notion)", level: 90 },
+  { name: "AI Integration (ChatGPT API)", level: 80 },
+  { name: "Design (Photoshop, Canva, CorelDRAW)", level: 75 },
+  { name: "Market Research", level: 95 },
 ]
 
+// --- STATS (ACTUALIZADO) ---
 const stats = [
-  { icon: Code2, label: "Projects Completed", value: "50+" },
-  { icon: Users, label: "Happy Clients", value: "30+" },
-  { icon: Award, label: "Awards Won", value: "8" },
-  { icon: Coffee, label: "Cups of Coffee", value: "1000+" },
+  { icon: Code2, label: "Years in marketing, project coordination & business support", value: "3+" },
+  { icon: Users, label: "Countries worked in with international teams", value: "3" },
+  { icon: Award, label: "Twice recognized as Valedictorian with top grades", value: "2x" },
+  { icon: Coffee, label: "Passion for technology & human impact", value: "∞" },
 ]
 
+// --- EXPERIENCIA LABORAL (ACTUALIZADO) ---
 const experience = [
-  {
-    period: "2024 — Present",
-    role: "Senior Frontend Engineer",
-    company: "Creative Studio",
+    {
+    period: "2025 — Present",
+    role: "Research Assistant",
+    company: "Kansas Small Business Development Center",
     description:
-      "Leading frontend development for innovative web experiences, specializing in interactive design and performance optimization.",
+      "Supported business development through research, CRM data tracking, and internal coordination/administrative position.",
   },
   {
-    period: "2022 — 2024",
-    role: "Full Stack Developer",
-    company: "Tech Startup",
+    period: "Dec 2022 — Dec 2024",
+    role: "Marketing & Project Coordination Assistant",
+    company: "Grant Thornton S.A.",
     description:
-      "Built scalable web applications from concept to deployment, working closely with design and product teams.",
+      "Collaborated with the marketing lead in Uruguay on content strategy, performance reporting, and competitor research. Supported internal branding through multi-platform campaigns and coordinated corporate events. Led a women’s empowerment initiative and managed HR documentation, streamlining onboarding with CRM systems.",
   },
   {
-    period: "2020 — 2022",
-    role: "UI/UX Designer",
-    company: "Digital Agency",
+    period: "Jan 2023 — Jun 2023",
+    role: "Hackathon Coordination Assistant",
+    company: "Girls Code Paraguay | Civic Technologies by Tavandu",
     description:
-      "Designed user-centered interfaces for web and mobile applications, conducting user research and usability testing.",
+      "Assisted in the organization and coordination of a hackathon aimed at empowering young women in technology, managing logistics and participant communication.",
   },
 ]
 
@@ -59,7 +62,7 @@ export function AboutSection() {
             About Me
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-            Passionate about crafting digital experiences that blend creativity with technical excellence.
+            I help businesses grow by combining marketing, automation, and web design.
           </p>
         </div>
 
@@ -69,8 +72,8 @@ export function AboutSection() {
             <Card className="overflow-hidden border-0 shadow-lg">
               <div className="relative">
                 <Image
-                  src="/images/profile.jpg"
-                  alt="Profile"
+                  src="/foto profesional angeles.jpg"
+                  alt="Angeles Profile"
                   width={400}
                   height={500}
                   className="w-full h-80 object-cover"
@@ -78,11 +81,13 @@ export function AboutSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="font-serif text-2xl font-bold text-foreground mb-2">Alex Johnson</h3>
-                <p className="text-muted-foreground mb-4">Creative Developer & Designer</p>
-                <Button className="w-full">
+                <h3 className="font-serif text-2xl font-bold text-foreground mb-2">Angeles Perez</h3>
+                <p className="text-muted-foreground mb-4">Marketer and Innovator</p>
+                <Button className="w-full" asChild>
+                  <a href="/Marketing_Resume_Angeles_Perez_25.pdf" download="Marketing_Resume_Angeles_Perez.pdf">
                   <Download className="w-4 h-4 mr-2" />
                   Download Resume
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -108,27 +113,25 @@ export function AboutSection() {
             {activeTab === "about" && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-serif text-2xl font-bold text-foreground mb-4">Hello, I'm Alex</h3>
+                  <h3 className="font-serif text-2xl font-bold text-foreground mb-4">Hello, I'm Angeles</h3>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      I'm a passionate developer and designer with over 5 years of experience creating digital
-                      experiences that matter. My journey began with a fascination for the intersection of art and
-                      technology, leading me to specialize in interactive web development and user experience design.
+                      I'm a marketing and business professional with experience across consulting, nonprofit, and 
+                      education sectors in Paraguay and the United States. I'm currently pursuing a BBA in Business 
+                      Administration with emphasis in Marketing Data-Driven & Intelligence at Wichita State University, 
+                      after graduating with top honors in Marketing from Universidad Americana.
                     </p>
                     <p>
-                      Currently, I'm focused on building accessible, pixel-perfect digital experiences that blend
-                      thoughtful design with robust engineering. I believe in the power of clean code, beautiful
-                      interfaces, and meaningful interactions.
-                    </p>
-                    <p>
-                      When I'm not coding, you'll find me exploring new design trends, experimenting with emerging
-                      technologies, or enjoying a good cup of coffee while sketching ideas for my next project.
+                      My career spans roles in project coordination, marketing strategy, and business development research. 
+                      My colleagues know me for my adaptability, problem-solving mindset, and ability to connect people and ideas easily. 
+                      Passionate about business, community, and innovation, I see my career as a bridge between innovation, technologies,
+                      strategy and human-centered impact.
                     </p>
                   </div>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-8">
                   {stats.map((stat, index) => (
                     <Card key={index} className="text-center p-4 border-0 shadow-sm">
                       <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />
@@ -159,20 +162,9 @@ export function AboutSection() {
                   <h4 className="font-semibold text-foreground mb-4">Technologies I work with:</h4>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      "React",
-                      "Next.js",
-                      "TypeScript",
-                      "Tailwind CSS",
-                      "Node.js",
-                      "Python",
-                      "PostgreSQL",
-                      "MongoDB",
-                      "AWS",
-                      "Vercel",
-                      "Figma",
-                      "Three.js",
-                      "GSAP",
-                      "Framer Motion",
+                      "Market Research", "Project Management", "Academic Research", "n8n", "Vercel", 
+                      "Gemini Code Assist", "ChatGPT API", "Airtable", "CorelDRAW", "Adobe Photoshop", 
+                      "Jira", "Notion", "Microsoft 365 Copilot", "Canva", "Web Development",
                     ].map((tech) => (
                       <Badge key={tech} variant="secondary">
                         {tech}
@@ -192,7 +184,7 @@ export function AboutSection() {
                       <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full" />
                       <div className="text-sm text-primary font-medium mb-1">{exp.period}</div>
                       <h4 className="font-semibold text-foreground text-lg">{exp.role}</h4>
-                      <div className="text-accent font-medium mb-2">{exp.company}</div>
+                      <div className="text-primary font-medium mb-2">{exp.company}</div>
                       <p className="text-muted-foreground text-pretty leading-relaxed">{exp.description}</p>
                     </div>
                   ))}

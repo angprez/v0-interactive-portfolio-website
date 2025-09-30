@@ -7,25 +7,25 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Alex Johnson - Creative Developer & Designer",
+  title: "Angeles Perez - Creative Marketing Innovator",
   description:
-    "Portfolio of Alex Johnson - Creative Developer specializing in interactive web experiences, UI/UX design, and modern web technologies.",
+    "Portfolio of Angeles Perez - Creative Developer specializing in interactive web experiences, UI/UX design, and modern web technologies.",
   keywords: ["portfolio", "web developer", "ui/ux designer", "react", "next.js", "creative developer"],
-  authors: [{ name: "Alex Johnson" }],
-  creator: "Alex Johnson",
+  authors: [{ name: "Angeles Perez Maidana" }],
+  creator: "Angeles A. Perez Maidana",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://alexjohnson.dev",
-    title: "Alex Johnson - Creative Developer & Designer",
-    description: "Portfolio showcasing creative web development and design work",
-    siteName: "Alex Johnson Portfolio",
+    title: "Angeles Perez - Marketer and Innovator",
+    description: "Portfolio showcasing my journey and exprience in the professional field",
+    siteName: "Angeles Perez Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Johnson - Creative Developer & Designer",
-    description: "Portfolio showcasing creative web development and design work",
-    creator: "@alexjohnson",
+    title: "Angeles A. Perez Maidana - Marketer and Innovator",
+    description: "Portfolio showcasing my journey and exprience in the professional field",
+    creator: "@angprez",
   },
   robots: {
     index: true,

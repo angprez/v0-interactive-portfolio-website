@@ -5,8 +5,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
-import Image from "next/image"
+import { ArrowRight, BookText, Linkedin, Mail } from "lucide-react"
 
 export function HeroSection() {
   const [email, setEmail] = useState("")
@@ -38,12 +37,29 @@ export function HeroSection() {
     }
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle newsletter signup
-    console.log("Newsletter signup:", email)
-    setEmail("")
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        alert('¡Thank you for contacting!.');
+        setEmail(''); // Limpia el campo de email
+      } else {
+        alert('There was a mistake. Please, try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('There was a mistake. The form was not submited.');
+    }
+  };
 
   const rockOpacity = Math.max(0, 1 - scrollY / 800)
   const rockScale = Math.max(0.5, 1 - scrollY / 1200)
@@ -54,34 +70,21 @@ export function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image with Parallax */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 scale-110"
-          style={{
-            transform: `translateY(${scrollY * 0.5}px)`,
-          }}
-        >
-          <Image src="/images/hero-bg.jpg" alt="Surreal landscape background" fill className="object-cover" priority />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/60" />
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover"
+            src="/videos/hero-video.mp4"
+        />
       </div>
 
-      <div className="fixed inset-0 z-5 pointer-events-none">
-        {/* Persistent Sky Elements */}
-        <div
-          className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-blue-400/10 to-transparent"
-          style={{
-            transform: `translateY(${scrollY * 0.1}px)`,
-          }}
-        />
-        <div
-          className="absolute top-16 right-0 w-64 h-64 bg-gradient-radial from-yellow-300/5 to-transparent rounded-full blur-3xl"
-          style={{
-            transform: `translate(${scrollY * 0.05}px, ${scrollY * 0.08}px)`,
-          }}
-        />
-      </div>
+      {/* --- BLOQUE DE CÓDIGO ELIMINADO --- 
+          He quitado el DIV que contenía los "Persistent Sky Elements" para eliminar el gradiente.
+      */}
 
       <div className="absolute inset-0 z-10 pointer-events-none">
         {/* Enhanced Drifting Clouds with unique behaviors */}
@@ -182,49 +185,51 @@ export function HeroSection() {
 
       {/* Main Content */}
       <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1 className="font-serif text-6xl sm:text-7xl lg:text-8xl font-bold text-white mb-8 text-balance">
-          Creative
-          <span className="block text-secondary italic">Portfolio</span>
+        <h1 className="font-serif text-6xl sm:text-7xl lg:text-8xl font-bold text-white mb-8 text-balance" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>
+          Strategies,
+          <span 
+            className="block text-secondary italic" 
+            style={{ textShadow: '2px 2px 10px rgba(255, 255, 255, 0.6)' }}
+          >
+            into growth
+          </span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-white/90 mb-12 max-w-2xl mx-auto text-pretty leading-relaxed">
-          Stay updated with the latest work and exclusive content! Subscribe to my newsletter today and never miss out
-          on exciting updates.
+        <p className="text-lg sm:text-xl text-white mb-12 max-w-2xl mx-auto text-pretty leading-relaxed" style={{ textShadow: '1px 1px 6px rgba(0, 0, 0, 0.8)' }}>
+          Desgining marketing strategies, automations, and digital experiences that help businesses grow.
         </p>
 
         {/* Newsletter Signup */}
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8">
           <Input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Enter your email to connect with me"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60"
+            className="flex-1 bg-white/10 backdrop-blur-sm border-white/80 text-white placeholder:text-black"
             required
           />
-          <Button type="submit" className="bg-white text-primary hover:bg-white/90">
+          <Button type="submit" className="bg-white text-primary hover:bg-white">
             <ArrowRight className="w-4 h-4" />
           </Button>
         </form>
 
-        <Button
-          variant="outline"
-          className="mb-16 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
-          onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-        >
-          View Portfolio
-        </Button>
-
         {/* Social Links */}
         <div className="flex justify-center space-x-6">
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary">
-            <Github className="w-6 h-6" />
+          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
+            <a href="mailto:ade.maidana1@gmail.com" aria-label="Gmail">
+              <Mail className="w-6 h-6" />
+            </a>
           </Button>
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary">
-            <Linkedin className="w-6 h-6" />
+          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
+            <a href="https://www.linkedin.com/in/angprezm" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin className="w-6 h-6" />
+            </a>
           </Button>
-          <Button variant="ghost" size="icon" className="text-white hover:text-secondary">
-            <Mail className="w-6 h-6" />
+          <Button variant="ghost" size="icon" className="text-white hover:text-secondary" asChild>
+            <a href="https://substack.com/@fonsagency" target="_blank" rel="noopener noreferrer" aria-label="Substack">
+              <BookText className="w-6 h-6" />
+            </a>
           </Button>
         </div>
       </div>
