@@ -1,55 +1,73 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname() // Hook para saber en qué URL estás
+
+  const navLinks = [
+    { name: "Home", href: "/#home", sectionId: "home" },
+    { name: "Projects", href: "/projects", sectionId: "projects" },
+    { name: "About", href: "/#about", sectionId: "about" },
+    { name: "Contact", href: "/#contact", sectionId: "contact" },
+  ]
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    // Si la sección es 'home', hacemos scroll al inicio de la página
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsOpen(false)
+  }
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, sectionId: string) => {
+    // Si el enlace es a una sección de la página de inicio Y estamos en la página de inicio
+    if (href.startsWith("/#") && pathname === "/") {
+      e.preventDefault() // Prevenimos la navegación normal del link
+      scrollToSection(sectionId)
+    }
+    // Para todos los demás casos (como ir a /projects, o ir de /projects a /#about),
+    // el componente Link se encargará de la navegación automáticamente.
     setIsOpen(false)
   }
 
   return (
     <nav
-      // ESTA ES LA LÍNEA QUE CAMBIAMOS:
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/90 backdrop-blur-md border-b border-border"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="font-serif text-2xl font-bold text-primary">Angeles' Portfolio</div>
+          {/* El logo ahora es un Link a la página principal */}
+          <Link 
+            href="/" 
+            onClick={(e) => handleNavClick(e, '/#home', 'home')}
+            className="font-serif text-2xl font-bold text-primary"
+          >
+            Angeles' Portfolio
+          </Link>
 
-          {/* Desktop Navigation */}
+          {/* Navegación de Escritorio */}
           <div className="hidden md:flex space-x-8">
-            <button
-              onClick={() => scrollToSection("home")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Projects
-            </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </button>
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Botón de Menú Móvil */}
           <div className="md:hidden">
             <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -57,34 +75,20 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Navegación Móvil */}
         {isOpen && (
           <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <button
-                onClick={() => scrollToSection("home")}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection("projects")}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => scrollToSection("about")}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Contact
-              </button>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
+                  className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         )}

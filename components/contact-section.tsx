@@ -59,17 +59,18 @@ export function ContactSection() {
     }))
   }
 
+  // Se restaura la función original que simula el envío
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
+    // Simula el envío del formulario
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     console.log("Form submitted:", formData)
     setIsSubmitting(false)
 
-    // Reset form
+    // Resetea el formulario
     setFormData({
       firstName: "",
       lastName: "",
