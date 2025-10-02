@@ -18,30 +18,28 @@ export function HeroSection() {
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: mainRef.current,
-          pin: true, // Fija la sección mientras dura la animación
-          scrub: 1,  // Conecta la animación al scroll
+          pin: true, 
+          scrub: 1,  
           start: "top top",
-          end: "+=2000", // La animación durará por 2000px de scroll
+          end: "+=2000", 
         },
       });
 
-      // Animación de salida para "Hello,"
       timeline.to(helloRef.current, {
         opacity: 0,
         scale: 0.8,
         ease: "power2.inOut",
       });
 
-      // Animación de entrada para "This is Angeles"
       timeline.fromTo(angelesRef.current, 
         { opacity: 0, scale: 0.8 },
         { opacity: 1, scale: 1, ease: "power2.inOut" },
-        "<" // El "<" hace que esta animación empiece al mismo tiempo que la anterior
+        "<" 
       );
       
     }, mainRef);
 
-    return () => ctx.revert(); // Limpieza de la animación
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -50,11 +48,16 @@ export function HeroSection() {
       ref={mainRef}
       className="relative min-h-screen w-full bg-black overflow-hidden"
     >
-      {/* Contenedor que se va a fijar en la pantalla */}
-      <div className="relative w-full h-screen flex flex-col justify-center items-center p-4 sm:p-8">
+      {/* AJUSTE 1: REDUCIMOS EL PADDING EN MÓVIL (p-2) Y LO MANTENEMOS EN ESCRITORIO (sm:p-8)
+        Esto le da más espacio al video para crecer.
+      */}
+      <div className="relative w-full h-screen flex flex-col justify-center items-center p-2 sm:p-8">
 
-        {/* El video centrado */}
-        <div ref={videoContainerRef} className="relative w-full max-w-5xl mx-auto aspect-video">
+        {/* AJUSTE 2: AÑADIMOS BORDES REDONDEADOS AL CONTENEDOR DEL VIDEO.
+          'rounded-3xl' para un redondeo pronunciado en móvil.
+          'overflow-hidden' para que el video de adentro no se salga de los bordes.
+        */}
+        <div ref={videoContainerRef} className="relative w-full max-w-5xl mx-auto aspect-video rounded-3xl overflow-hidden">
           <video 
               autoPlay 
               loop 
@@ -65,7 +68,6 @@ export function HeroSection() {
           />
         </div>
 
-        {/* Capa de Texto "Hello," (Animado) */}
         <h1 
           ref={helloRef}
           className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-nowrap tracking-tighter"
@@ -73,12 +75,14 @@ export function HeroSection() {
           Hello,
         </h1>
 
-        {/* Capa de Texto con Borde "This is Angeles" (Animado) */}
+        {/* AJUSTE 3: AUMENTAMOS EL TAMAÑO DEL TEXTO EN MÓVIL.
+          Cambiamos de 'text-[10vw]' a 'text-[13vw]' para hacerlo más grande.
+        */}
         <h2 
           ref={angelesRef}
-          className="pointer-events-none absolute font-serif text-transparent text-center text-[10vw] sm:text-[8vw] lg:text-[11.5vw] whitespace-nowrap tracking-tight opacity-0" // Empieza invisible
+          className="pointer-events-none absolute font-serif text-transparent text-center text-[13vw] sm:text-[8vw] lg:text-[11.5vw] whitespace-nowrap tracking-tight opacity-0"
           style={{ 
-            WebkitTextStroke: '2px white',
+            WebkitTextStroke: '1px white', // Reducimos el borde en móvil para que se vea más fino
             filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5))'
           }}
         >
@@ -87,7 +91,6 @@ export function HeroSection() {
 
       </div>
 
-      {/* Indicador de Scroll */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-white/50">
         <p className="flex items-center gap-2">
           Let's scroll <ArrowDown className="w-4 h-4 animate-bounce" />
