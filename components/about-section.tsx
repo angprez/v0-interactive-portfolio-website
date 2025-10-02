@@ -55,7 +55,7 @@ export function AboutSection() {
   const [activeTab, setActiveTab] = useState("about")
 
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-primary mb-6 text-balance">
@@ -69,16 +69,16 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
           {/* Profile Image and Info */}
           <div className="lg:col-span-1">
-            <Card className="overflow-hidden border-0 shadow-lg">
-              <div className="relative">
+            <Card className="overflow-hidden shadow-lg rounded-3xl border border-white/10">
+              <div className="relative p-4 flex justify-center items-center">
                 <Image
                   src="/foto profesional angeles.jpg"
                   alt="Angeles Profile"
-                  width={400}
-                  height={500}
-                  className="w-full h-80 object-cover"
+                  width={200}
+                  height={200}
+                  className="w-48 h-48 object-cover rounded-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
               <CardContent className="p-6 text-center">
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-2">Angeles Perez</h3>
@@ -130,13 +130,14 @@ export function AboutSection() {
                   </div>
                 </div>
 
+                {/* --- CAMBIOS APLICADOS AQUÍ --- */}
                 {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
                   {stats.map((stat, index) => (
-                    <Card key={index} className="text-center p-4 border-0 shadow-sm">
-                      <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <Card key={index} className="text-center p-3">
+                      <stat.icon className="w-7 h-7 text-primary mx-auto mb-1" />
                       <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                      <p className="text-xs text-muted-foreground">{stat.label}</p>
                     </Card>
                   ))}
                 </div>
