@@ -48,15 +48,10 @@ export function HeroSection() {
       ref={mainRef}
       className="relative min-h-screen w-full bg-black overflow-hidden"
     >
-      {/* AJUSTE 1: REDUCIMOS EL PADDING EN MÓVIL (p-2) Y LO MANTENEMOS EN ESCRITORIO (sm:p-8)
-        Esto le da más espacio al video para crecer.
-      */}
-      <div className="relative w-full h-screen flex flex-col justify-center items-center p-2 sm:p-8">
+      {/* --- CAMBIO CLAVE AQUÍ --- */}
+      {/* Hemos reducido el padding horizontal en móvil (px-2) para que el video sea más ancho */}
+      <div className="relative w-full h-screen flex flex-col justify-center items-center px-2 py-4 sm:p-8">
 
-        {/* AJUSTE 2: AÑADIMOS BORDES REDONDEADOS AL CONTENEDOR DEL VIDEO.
-          'rounded-3xl' para un redondeo pronunciado en móvil.
-          'overflow-hidden' para que el video de adentro no se salga de los bordes.
-        */}
         <div ref={videoContainerRef} className="relative w-full max-w-5xl mx-auto aspect-video rounded-3xl overflow-hidden">
           <video 
               autoPlay 
@@ -70,19 +65,16 @@ export function HeroSection() {
 
         <h1 
           ref={helloRef}
-          className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-nowrap tracking-tighter"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-rap tracking-tighter"
         >
           Hello,
         </h1>
-
-        {/* AJUSTE 3: AUMENTAMOS EL TAMAÑO DEL TEXTO EN MÓVIL.
-          Cambiamos de 'text-[10vw]' a 'text-[13vw]' para hacerlo más grande.
-        */}
+        
         <h2 
           ref={angelesRef}
           className="pointer-events-none absolute font-serif text-transparent text-center text-[13vw] sm:text-[8vw] lg:text-[11.5vw] whitespace-nowrap tracking-tight opacity-0"
           style={{ 
-            WebkitTextStroke: '1px white', // Reducimos el borde en móvil para que se vea más fino
+            WebkitTextStroke: '1px white',
             filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5))'
           }}
         >
