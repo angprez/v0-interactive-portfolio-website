@@ -48,10 +48,15 @@ export function HeroSection() {
       ref={mainRef}
       className="relative min-h-screen w-full bg-black overflow-hidden"
     >
-      {/* --- CAMBIO CLAVE AQUÍ --- */}
-      {/* Hemos reducido el padding horizontal en móvil (px-2) para que el video sea más ancho */}
-      <div className="relative w-full h-screen flex flex-col justify-center items-center px-2 py-4 sm:p-8">
+      {/* --- EL CAMBIO FINAL Y CLAVE ESTÁ AQUÍ --- */}
+      {/* Restauramos un padding horizontal pequeño con `px-4`.
+        Esto crea el margen elegante a los lados en la versión móvil.
+        El padding vertical `py-8` centra el video.
+        `sm:p-8` asegura que en pantallas más grandes todo vuelva a la normalidad.
+      */}
+      <div className="relative w-full h-screen flex flex-col justify-center items-center px-4 py-8 sm:p-8">
 
+        {/* Este contenedor ahora respetará el padding de su padre */}
         <div ref={videoContainerRef} className="relative w-full max-w-5xl mx-auto aspect-video rounded-3xl overflow-hidden">
           <video 
               autoPlay 
@@ -65,7 +70,7 @@ export function HeroSection() {
 
         <h1 
           ref={helloRef}
-          className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-rap tracking-tighter"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center font-serif font-bold text-white/100 text-center text-[25vw] sm:text-[20vw] lg:text-[15vw] leading-none whitespace-nowrap tracking-tighter"
         >
           Hello,
         </h1>
