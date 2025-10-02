@@ -1,0 +1,53 @@
+// NOTA: Recuerda reemplazar las imágenes y los URLs ('#') con tus detalles reales.
+export const projects = [
+    {
+      id: 1,
+      title: "Women's Empowerment Initiative",
+      category: "Marketing",
+      image: "/images/project-1.jpg", 
+      tags: ["Leadership", "Project Coordination", "Corporate Culture"],
+      liveUrl: "#",
+      githubUrl: "#",
+      description: "Led a corporate initiative at Grant Thornton to promote equity and enhance internal collaboration.",
+      longDescription: "This initiative was designed from the ground up to foster a more inclusive environment for women within Grant Thornton. I was responsible for the complete project lifecycle, from conceptualization and planning with C-level executives to execution and internal communication campaigns. The program included mentorship circles, leadership workshops, and networking events, resulting in a measurable increase in employee engagement and positive feedback on corporate culture.",
+      galleryImages: ["/images/project-1.jpg", "/images/project-2.jpg", "/images/project-3.jpg"],
+    },
+    {
+      id: 2,
+      title: "Girls Code Hackathon Coordination",
+      category: "Events",
+      image: "/images/project-3.jpg",
+      tags: ["Event Management", "Communications", "Email Marketing"],
+      liveUrl: "#",
+      githubUrl: "#",
+      description: "Managed logistics and communications for a 6-month hackathon series in partnership with UNDP.",
+      longDescription: "As the coordination assistant for the Girls Code Paraguay Hackathon, I handled critical operational tasks. This included managing vendor relationships, coordinating supplies, overseeing participant communication via email marketing campaigns, and liaising with key sponsors like the United Nations Development Programme (PNUD). My role was vital in ensuring a smooth and successful event for all participants.",
+      galleryImages: ["/images/project-3.jpg", "/images/project-4.jpg", "/images/project-5.jpg"],
+    },
+    {
+      id: 3,
+      title: "HR Onboarding Automation",
+      category: "Automations",
+      image: "/images/project-5.jpg",
+      tags: ["CRM", "Microsoft 365", "Automation", "HR"],
+      liveUrl: "#",
+      githubUrl: "#",
+      description: "Streamlined the new employee onboarding process using CRM systems and Microsoft 365.",
+      longDescription: "I identified bottlenecks in the HR onboarding process and implemented a streamlined workflow using the company's existing CRM and Microsoft 365 suite. By automating documentation management and communication flows, we reduced the time required to onboard new hires by 30% and minimized administrative errors, creating a more efficient and welcoming experience for new team members.",
+      galleryImages: ["/images/project-5.jpg", "/images/project-6.jpg", "/images/project-1.jpg"],
+    },
+    {
+        id: 4,
+        title: "Internal Branding Campaigns",
+        category: "Marketing",
+        image: "/images/project-2.jpg", 
+        tags: ["Branding", "Social Media", "Content Strategy"],
+        liveUrl: "#",
+        githubUrl: "#",
+        description: "Supported internal branding and visibility through multi-platform social media campaigns.",
+        longDescription: "At Grant Thornton, I collaborated on several internal branding initiatives aimed at increasing employee engagement and brand visibility. My responsibilities included content creation for LinkedIn, Instagram, and Facebook, performance reporting, and competitor research. These campaigns helped align the internal team with the company's values and external messaging.",
+        galleryImages: ["/images/project-2.jpg", "/images/project-4.jpg", "/images/project-6.jpg"],
+      },
+  ];
+  
+export const categories = ["All", "Marketing", "Events", "Automations", "Website", "Others"];
