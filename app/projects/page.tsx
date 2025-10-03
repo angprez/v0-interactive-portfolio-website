@@ -1,11 +1,25 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import { projects } from "@/lib/projects-data" 
-import { Navigation } from "@/components/navigation"
-import { ProjectCard } from "@/components/project-card" 
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { projects, categories } from "@/lib/projects-data";
+import { Navigation } from "@/components/navigation";
+import { ProjectCard } from "@/components/project-card";
 
 export default function ProjectsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredProjects =
+    selectedCategory === "All"
+      ? [...projects].reverse()
+      : [...projects]
+          .reverse()
+          .filter((project) =>
+            project.category.includes(selectedCategory)
+          );
+
   return (
     <>
       <Navigation />
@@ -19,13 +33,23 @@ export default function ProjectsPage() {
               Here is a complete collection of my work. Click on any project to explore it in detail.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} /> 
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                onClick={() => setSelectedCategory(category)}
+                className="transition-all duration-300"
+              >
+                {category}
+              </Button>
             ))}
           </div>
-          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
           <div className="text-center mt-16">
             <Button asChild variant="outline" size="lg" className="group bg-transparent">
               <Link href="/">
@@ -37,5 +61,5 @@ export default function ProjectsPage() {
         </div>
       </main>
     </>
-  )
+  );
 }

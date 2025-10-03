@@ -1,20 +1,23 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import { projects, categories } from "@/lib/projects-data"
-// Importamos el componente reutilizable que creamos
-import { ProjectCard } from "@/components/project-card" 
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { projects, categories } from "@/lib/projects-data";
+import { ProjectCard } from "@/components/project-card";
 
 export function ProjectsSection() {
-  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Mostramos solo los primeros 6 proyectos en la página de inicio
-  const featuredProjects = projects.slice(0, 6);
+  const featuredProjects = [...projects].reverse().slice(0, 6);
+
   const filteredProjects =
-    selectedCategory === "All" ? featuredProjects : featuredProjects.filter((project) => project.category === selectedCategory)
+    selectedCategory === "All"
+      ? featuredProjects
+      : featuredProjects.filter((project) =>
+          project.category.includes(selectedCategory)
+        );
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -27,7 +30,6 @@ export function ProjectsSection() {
             A selection of my most impactful work. Click on any project to see more details.
           </p>
         </div>
-
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((category) => (
             <Button
@@ -40,16 +42,11 @@ export function ProjectsSection() {
             </Button>
           ))}
         </div>
-
-        {/* --- AJUSTE PRINCIPAL AQUÍ --- */}
-        {/* Reemplazamos el código complejo de la tarjeta por nuestro nuevo componente */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
-
-        {/* Botón que enlaza a la página de todos los proyectos */}
         <div className="text-center mt-12">
           <Button asChild variant="outline" size="lg" className="group bg-transparent">
             <Link href="/projects">
@@ -60,5 +57,5 @@ export function ProjectsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,13 +1,18 @@
+// app/projects/[id]/page.tsx
+
 import Link from "next/link";
 import { projects } from "@/lib/projects-data";
 import { Navigation } from "@/components/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-// 1. AÑADIMOS LOS NUEVOS ÍCONOS
-import { ArrowLeft, Linkedin, BookText, Mail } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { SubstackFeed } from "@/components/SubstackFeed";
+import { EventShowcase } from "@/components/EventShowcase";
 
-// Esto le dice a Next.js qué páginas de proyectos debe generar
+// Esta función define las propiedades de un proyecto
+type Project = (typeof projects)[0];
+
 export async function generateStaticParams() {
   return projects.map((project) => ({
     id: project.id.toString(),
@@ -15,30 +20,33 @@ export async function generateStaticParams() {
 }
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
-  const project = projects.find((p) => p.id.toString() === params.id);
+  const project = projects.find((p) => p.id.toString() === params.id) as Project | undefined;
   
-  // 2. AÑADIMOS LOS DATOS DE TUS ENLACES SOCIALES
-  const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/angprezm" },
-    { icon: BookText, label: "Substack", href: "https://substack.com/@fonsagency" },
-    { icon: Mail, label: "Email", href: "mailto:ade.maidana1@gmail.com" },
-  ];
-
   if (!project) {
     return (
       <div>
-        <h1 className="text-center text-2xl font-bold mt-20">Project not found</h1>
-        <div className="text-center mt-8">
-            <Button asChild variant="outline">
-                <Link href="/projects">
-                    <ArrowLeft className="w-4 h-4 mr-2"/>
-                    Back to All Projects
-                </Link>
-            </Button>
-        </div>
+        <Navigation />
+        <main className="py-20 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto pt-16 text-center">
+                <h1 className="text-2xl font-bold mt-20">Project not found</h1>
+                <div className="mt-8">
+                    <Button asChild variant="outline">
+                        <Link href="/projects">
+                            <ArrowLeft className="w-4 h-4 mr-2"/>
+                            Back to All Projects
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+        </main>
       </div>
     );
   }
+
+  const isSubstackProject = project.id === 8;
+  const isEventsProject = project.id === 9;
+  // Comprobamos si el objeto del proyecto tiene una propiedad de video
+  const hasVideo = 'video' in project && project.video;
 
   return (
     <>
@@ -65,48 +73,89 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             ))}
           </div>
 
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8 shadow-lg">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover"
-            />
+          {/* --- LÓGICA PARA MOSTRAR VIDEO O IMAGEN --- */}
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8 shadow-lg bg-card">
+            {hasVideo ? (
+              <video
+                src={project.video as string}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+              />
+            )}
           </div>
 
-          <div className="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed mb-8">
+          <div className="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed mb-12 whitespace-pre-line">
             <p>{project.longDescription}</p>
           </div>
 
-          {/* --- 3. SECCIÓN DE BOTONES REEMPLAZADA --- */}
-          <div className="mb-12">
-            <h2 className="text-xl font-bold mb-4">Connect with me</h2>
-            <div className="flex flex-wrap gap-4">
-                {socialLinks.map((link) => (
-                    <Button asChild key={link.label} variant="outline">
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            <link.icon className="w-4 h-4 mr-2"/>
-                            {link.label}
-                        </a>
-                    </Button>
-                ))}
+          {(project.liveUrl || project.githubUrl) && (
+            <div className="flex flex-wrap gap-4 mb-12">
+              {project.liveUrl && (
+                <Button asChild>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    {isSubstackProject ? "Visit Substack" : "Visit Live Site"}
+                    <ArrowUpRight className="w-4 h-4 ml-2" />
+                  </a>
+                </Button>
+              )}
+              {project.githubUrl && (
+                 <Button asChild variant="outline">
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        View Source Code
+                    </a>
+                </Button>
+              )}
             </div>
-          </div>
-
-
-          <h2 className="text-2xl font-bold mb-4">Gallery</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {project.galleryImages.map((img, index) => (
-                <div key={index} className="relative aspect-video rounded-md overflow-hidden">
-                     <Image
-                        src={img}
-                        alt={`${project.title} gallery image ${index + 1}`}
-                        fill
-                        className="object-cover"
-                    />
+          )}
+          
+          {(() => {
+            if (isSubstackProject) {
+              return (
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Featured Articles</h2>
+                  <SubstackFeed />
                 </div>
-            ))}
-          </div>
+              );
+            }
+            if (isEventsProject) {
+              return (
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Key Activities</h2>
+                  <EventShowcase />
+                </div>
+              );
+            }
+            if (project.galleryImages && project.galleryImages.length > 0) {
+              return (
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Gallery</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.galleryImages.map((img, index) => (
+                      <div key={index} className="relative aspect-video rounded-md overflow-hidden">
+                        <Image
+                          src={img}
+                          alt={`${project.title} gallery image ${index + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })()}
         </div>
       </main>
     </>

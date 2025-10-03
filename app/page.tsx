@@ -1,6 +1,8 @@
-"use client"; // <-- 1. Convertimos esta página a un Componente de Cliente
+// app/page.tsx
 
-import { useEffect } from "react"; // <-- 2. Importamos useEffect
+"use client"; 
+
+import { useEffect } from "react";
 import { Navigation } from "@/components/navigation";
 import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
@@ -9,19 +11,18 @@ import { ContactSection } from "@/components/contact-section";
 
 export default function Home() {
   
-  // --- 3. AÑADIMOS ESTE BLOQUE DE CÓDIGO ---
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
-      const id = hash.substring(1); // quitamos el '#'
+      const id = hash.substring(1); 
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
-      }, 100); // Un pequeño retraso para asegurar que todo ha cargado
+      }, 100); 
     }
-  }, []); // El array vacío asegura que esto solo se ejecute una vez al cargar la página
+  }, []);
 
   return (
     <main className="min-h-screen">
