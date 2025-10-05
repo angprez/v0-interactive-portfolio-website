@@ -234,16 +234,6 @@ export function ContactSection() {
                         onChange={handleInputChange}
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="budget">Budget Range</Label>
-                      <Input
-                        id="budget"
-                        name="budget"
-                        placeholder="e.g., $5,000 - $10,000"
-                        value={formData.budget}
-                        onChange={handleInputChange}
-                      />
-                    </div>
                   </div>
 
                   <div className="space-y-2">
