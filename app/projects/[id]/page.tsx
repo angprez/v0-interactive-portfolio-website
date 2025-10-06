@@ -9,6 +9,7 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SubstackFeed } from "@/components/SubstackFeed";
 import { EventShowcase } from "@/components/EventShowcase";
+import { InstagramFeed } from "@/components/InstagramFeed"; // <-- IMPORTACIÓN NUEVA
 
 // Esta función define las propiedades de un proyecto
 type Project = (typeof projects)[0];
@@ -45,6 +46,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
   const isSubstackProject = project.id === 8;
   const isEventsProject = project.id === 9;
+  const isInstagramProject = project.id === 5; // <-- NUEVA VARIABLE
   // Comprobamos si el objeto del proyecto tiene una propiedad de video
   const hasVideo = 'video' in project && project.video;
 
@@ -73,26 +75,29 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             ))}
           </div>
 
-          {/* --- LÓGICA PARA MOSTRAR VIDEO O IMAGEN --- */}
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8 shadow-lg bg-card">
-            {hasVideo ? (
-              <video
-                src={project.video as string}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            )}
-          </div>
+          {/* --- LÓGICA PARA MOSTRAR VIDEO O IMAGEN (AHORA CONDICIONAL) --- */}
+          {/* Este bloque solo se renderizará si NO es el proyecto de Instagram */}
+          {!isInstagramProject && ( // <-- CONDICIÓN AÑADIDA AQUÍ
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8 shadow-lg bg-card">
+              {hasVideo ? (
+                <video
+                  src={project.video as string}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+              )}
+            </div>
+          )}
 
           <div className="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed mb-12 whitespace-pre-line">
             <p>{project.longDescription}</p>
@@ -118,7 +123,12 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             </div>
           )}
           
+          {/* El InstagramFeed ahora se muestra aquí directamente después de la descripción y botones */}
+          {isInstagramProject && <InstagramFeed />} {/* <-- MOVIDO AQUÍ */}
+
           {(() => {
+            // El resto de la lógica para otros feeds y galerías
+            // Ahora InstagramProject se maneja arriba
             if (isSubstackProject) {
               return (
                 <div>
