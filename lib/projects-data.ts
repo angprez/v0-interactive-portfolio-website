@@ -44,52 +44,85 @@ export const projects = [
         id: 4,
         title: "Grant Thornton Paraguay - Social Media Management",
         category: ["Social Media", "Content Creation"],
-        image: "/images/project-2.jpg",
+        image: "/images/portada-gt.webp", // Portada
         video: undefined,
         tags: ["Content Strategy", "Community Management", "B2B Marketing"],
-        liveUrl: "https://www.instagram.com/grantthornton.py",
+        liveUrl: null,
         githubUrl: null,
         description: "Drove content strategy tailored to the Paraguayan market for a global consulting firm.",
         longDescription: "As the local marketing lead in Paraguay, I drove content strategy and generated ideas tailored to the Paraguayan market. Collaborating with a multinational team, my role was to create culturally relevant content to boost engagement and strengthen the brand's presence in the local B2B landscape.",
-        galleryImages: ["/images/project-2.jpg", "/images/project-4.jpg", "/images/project-6.jpg"],
+        galleryImages: [],
+        isInstagramProject: true,
+        instagram: {
+            username: "grantthornton.py",
+            profileImage: "/images/gt-logo.avif",
+            description: "Global consulting firm - Paraguay branch",
+            instagramUrl: "https://www.instagram.com/grantthornton.py",
+            posts: ["/images/gt2.png", "/images/gt3.png", "/images/gt4.png", "/images/gt5.png", "/images/gt6.png", "/images/gt7.png"]
+        }
     },
     {
         id: 5,
         title: "WSU Paraguay - Student Organization",
         category: ["Social Media", "Content Creation"],
-        image: "/wsu-portada.jpg",
+        image: "/wsu-portada.jpg", // Portada
         video: undefined,
         tags: ["Content Creation", "Community Building", "Higher Education"],
+        liveUrl: null,
         githubUrl: null,
-        description: "Managed the official Instagram to build a community for Paraguayan students at Wichita State University.",
+        description: "Managed the official Instagram to build a community for Paraguayan Students at WSU.",
         longDescription: "I managed the official Instagram for the Paraguayan Student Association at Wichita State University. My work focused on fostering a strong, supportive community for students abroad through engaging content, event promotion, and consistent communication, effectively making it a central hub for members.",
         galleryImages: [],
+        isInstagramProject: true,
+        instagram: {
+            username: "wsuparaguay",
+            profileImage: "/images/PSA logo.png",
+            description: "Paraguayan Student Organization at WSU",
+            instagramUrl: "https://www.instagram.com/wsuparaguay",
+            posts: ["/images/wsu-1.jpg.png", "/images/wsu-2.jpg.png", "/images/wsu-3.jpg.png", "/images/wsu-4.jpg.png", "/images/wsu-5.jpg.png", "/images/wsu-6.jpg.jpg"]
+        }
     },
     {
         id: 6,
         title: "Cultivando Oportunidades - Social Project",
         category: ["Content Creation", "Social Media"],
-        image: "/images/project-6.jpg",
+        image: "/co-1.jpg", // Portada
         video: undefined,
         tags: ["Social Impact", "Educational Content", "Volunteering"],
-        liveUrl: "https://www.instagram.com/cultivando_oportunidades",
+        liveUrl: null,
         githubUrl: null,
         description: "Co-created and managed the social account for a 6-month youth education project.",
         longDescription: "This was a social project I co-created to teach children about environmental care, financial literacy, and leadership. I managed the Instagram account to document our journey, share educational content, and showcase the positive impact on the community, which included building a vegetable garden with the kids.",
-        galleryImages: ["/images/project-6.jpg", "/images/project-2.jpg", "/images/project-3.jpg"],
+        galleryImages: [],
+        isInstagramProject: true,
+        instagram: {
+            username: "cultivando_oportunidades",
+            profileImage: "/co-logo.png",
+            description: "Youth Social & Educational Project",
+            instagramUrl: "https://www.instagram.com/cultivando_oportunidades",
+            posts: ["/co-1.jpg", "/co-2.jpg", "/co-3.jpg", "/co-4.jpg", "/co-5.jpg", "/co-6.jpg"]
+        }
     },
     {
         id: 7,
         title: "Nambireta Podcast - Arts & Culture",
         category: ["Content Creation", "Social Media"],
-        image: "/images/project-1.jpg",
+        image: "/nam-1.jpg", // Portada
         video: undefined,
         tags: ["Podcast Marketing", "Cultural Promotion", "Youth Project"],
-        liveUrl: "https://www.instagram.com/nambireta",
+        liveUrl: null,
         githubUrl: null,
         description: "Handled social media for a youth-led podcast, helping it reach #1 in its category.",
         longDescription: "For one year, I volunteered to manage the social media for 'Nambireta,' a podcast about Paraguayan culture. Through strategic content and community engagement, our youth-led team successfully grew our audience, reaching the #1 spot in our category on several platforms and promoting our culture to a wider audience.",
-        galleryImages: ["/images/project-1.jpg", "/images/project-5.jpg", "/images/project-4.jpg"],
+        galleryImages: [],
+        isInstagramProject: true,
+        instagram: {
+            username: "nambireta",
+            profileImage: "/nam-logo.png",
+            description: "Paraguayan Culture Youth Podcast",
+            instagramUrl: "https://www.instagram.com/nambireta",
+            posts: ["/nam-1.jpg", "/nam-2.jpg", "/nam-3.jpg", "/nam-4.jpg", "/nam-5.jpg", "/nam-6.jpg"]
+        }
     },
     {
         id: 8,

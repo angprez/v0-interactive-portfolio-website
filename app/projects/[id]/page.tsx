@@ -9,10 +9,19 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SubstackFeed } from "@/components/SubstackFeed";
 import { EventShowcase } from "@/components/EventShowcase";
-import { InstagramFeed } from "@/components/InstagramFeed"; // <-- IMPORTACIÓN NUEVA
+import { InstagramFeed } from "@/components/InstagramFeed";
 
-// Esta función define las propiedades de un proyecto
-type Project = (typeof projects)[0];
+// Extendemos el tipo Project para incluir la nueva data de Instagram
+type Project = (typeof projects)[0] & {
+  isInstagramProject?: boolean;
+  instagram?: {
+    username: string;
+    profileImage: string;
+    description: string;
+    instagramUrl: string;
+    posts: string[];
+  };
+};
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -46,8 +55,6 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
   const isSubstackProject = project.id === 8;
   const isEventsProject = project.id === 9;
-  const isInstagramProject = project.id === 5; // <-- NUEVA VARIABLE
-  // Comprobamos si el objeto del proyecto tiene una propiedad de video
   const hasVideo = 'video' in project && project.video;
 
   return (
@@ -75,9 +82,8 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             ))}
           </div>
 
-          {/* --- LÓGICA PARA MOSTRAR VIDEO O IMAGEN (AHORA CONDICIONAL) --- */}
-          {/* Este bloque solo se renderizará si NO es el proyecto de Instagram */}
-          {!isInstagramProject && ( // <-- CONDICIÓN AÑADIDA AQUÍ
+          {/* Ocultamos la imagen principal para los proyectos de Instagram */}
+          {!project.isInstagramProject && (
             <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8 shadow-lg bg-card">
               {hasVideo ? (
                 <video
@@ -103,6 +109,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             <p>{project.longDescription}</p>
           </div>
 
+          {/* Botones de Live URL y GitHub */}
           {(project.liveUrl || project.githubUrl) && (
             <div className="flex flex-wrap gap-4 mb-12">
               {project.liveUrl && (
@@ -123,12 +130,19 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             </div>
           )}
           
-          {/* El InstagramFeed ahora se muestra aquí directamente después de la descripción y botones */}
-          {isInstagramProject && <InstagramFeed />} {/* <-- MOVIDO AQUÍ */}
+          {/* Renderizamos el feed si es un proyecto de Instagram */}
+          {project.isInstagramProject && project.instagram && (
+            <InstagramFeed
+              username={project.instagram.username}
+              profileImage={project.instagram.profileImage}
+              description={project.instagram.description}
+              instagramUrl={project.instagram.instagramUrl}
+              posts={project.instagram.posts}
+            />
+          )}
 
+          {/* Lógica para otros tipos de proyectos */}
           {(() => {
-            // El resto de la lógica para otros feeds y galerías
-            // Ahora InstagramProject se maneja arriba
             if (isSubstackProject) {
               return (
                 <div>
